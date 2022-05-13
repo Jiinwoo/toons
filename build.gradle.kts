@@ -6,6 +6,8 @@ plugins {
     kotlin("jvm") version "1.6.10"
     kotlin("plugin.spring") version "1.6.10"
     kotlin("plugin.jpa") version "1.6.10"
+    id("com.google.cloud.tools.jib") version "3.2.1"
+    id("nebula.release") version "16.0.0"
 }
 
 group = "day"
@@ -52,4 +54,18 @@ tasks.withType<KotlinCompile> {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+jib {
+    from {
+        image = "adoptopenjdk/openjdk11:jre-11.0.6_10-alpine"
+    }
+    to {
+        image = "registry.jinwoo.space/${project.name}"
+        tags = setOf("${project.version.toString().replace('+', '-')}")
+        auth {
+            username = findProperty("docker.repo.username") as String?
+            password = findProperty("docker.repo.password") as String?
+        }
+    }
 }

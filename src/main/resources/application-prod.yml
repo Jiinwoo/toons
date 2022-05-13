@@ -4,6 +4,6 @@ spring:
       ddl-auto: validate
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mariadb://localhost:3306/trello_dev
+    url: jdbc:mariadb://db:3306/trello_dev
     username: root
     password: 1234

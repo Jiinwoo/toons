@@ -1,5 +1,6 @@
 package day.toons.global.config.security.oauth2
 
+import day.toons.global.util.CookieUtils
 import org.springframework.security.core.AuthenticationException
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler
 import org.springframework.stereotype.Component
