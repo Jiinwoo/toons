@@ -1,0 +1,23 @@
+
+POST http://localhost:8080/api/members
+Content-Type: application/json
+
+{
+  "email": "jwjung5038@gmail.com",
+  "username": "정진우",
+  "password": "passw0rd"
+}
+###
+POST http://localhost:8080/auth
+Content-Type: application/json
+
+{
+"email": "jwjung5038@gmail.com",
+"password": "passw0rd"
+}
+
+> {% client.global.set("auth_token", response.body.token); %}
+
+### Authorization by token, part 2. Use token to authorize.
+GET http://localhost:8080/api/members
+Authorization: Bearer {{auth_token}}

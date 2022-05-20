@@ -34,6 +34,8 @@ dependencies {
 
     runtimeOnly("com.h2database:h2")
     runtimeOnly("mysql:mysql-connector-java")
+    implementation("org.mariadb.jdbc:mariadb-java-client:3.0.4")
+
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.batch:spring-batch-test")
@@ -61,7 +63,7 @@ jib {
         image = "adoptopenjdk/openjdk11:jre-11.0.6_10-alpine"
     }
     to {
-        image = "registry.jinwoo.space/${project.name}"
+        image = "wlsdn1962/toons-api"
         tags = setOf("${project.version.toString().replace('+', '-')}")
         auth {
             username = findProperty("docker.repo.username") as String?

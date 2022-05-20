@@ -6,10 +6,10 @@ spring:
       hibernate:
         format_sql: true
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mariadb://localhost:3306/trello_dev
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://localhost:3306/toons
     username: root
-    password: 1234
+    password: passw0rd
 
 logging:
   level:

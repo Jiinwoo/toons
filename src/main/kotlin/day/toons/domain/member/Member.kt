@@ -2,11 +2,14 @@ package day.toons.domain.member
 
 import day.toons.domain.common.AuditingEntity
 import javax.persistence.Column
+import javax.persistence.Entity
 import javax.persistence.EnumType
 import javax.persistence.Enumerated
 import javax.persistence.Table
 
+
 @Table(name = "TB_MEMBER")
+@Entity
 class Member(
     @Column
     var email: String,
