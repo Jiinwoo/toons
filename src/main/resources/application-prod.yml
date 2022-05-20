@@ -3,7 +3,7 @@ spring:
     hibernate:
       ddl-auto: validate
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mariadb://db:3306/trello_dev
-    username: root
-    password: 1234
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://db:3306/toons
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
