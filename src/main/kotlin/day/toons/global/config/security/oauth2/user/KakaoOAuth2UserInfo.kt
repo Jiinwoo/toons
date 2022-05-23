@@ -4,7 +4,7 @@ import day.toons.global.config.security.oauth2.user.OAuth2UserInfo
 
 class KakaoOAuth2UserInfo(attributes: MutableMap<String, Any>): OAuth2UserInfo(attributes) {
     override val id: String
-        get() = (attributes["id"] as Int).toString()
+        get() = (attributes["id"]).toString()
     override val name: String
         get() = (attributes["properties"] as Map<*, *>)["nickname"] as String
     override val email: String

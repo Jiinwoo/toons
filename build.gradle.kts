@@ -10,6 +10,15 @@ plugins {
     id("nebula.release") version "16.0.0"
 }
 
+allOpen {
+    annotation("javax.persistence.Entity") // @Entity가 붙은 클래스에 한해서만 all open 플러그인을 적용
+}
+
+noArg {
+    annotation("javax.persistence.Entity") // @Entity가 붙은 클래스에 한해서만 no arg 플러그인을 적용
+}
+
+
 group = "day"
 version = "0.0.1-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_11
@@ -45,6 +54,8 @@ dependencies {
     implementation("org.apache.commons:commons-lang3:3.0")
     //JWT
     implementation("io.jsonwebtoken:jjwt:0.9.1")
+    // jsoup
+    implementation("org.jsoup:jsoup:1.15.1")
 }
 
 tasks.withType<KotlinCompile> {
