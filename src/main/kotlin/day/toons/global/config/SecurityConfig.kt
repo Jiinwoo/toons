@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import day.toons.global.config.security.*
 import day.toons.global.config.security.oauth2.CustomOAuth2UserService
 import day.toons.global.config.security.oauth2.HttpCookieOAuth2AuthorizationRequestRepository
+import day.toons.global.config.security.oauth2.OAuth2AuthenticationFailureHandler
 import day.toons.global.config.security.oauth2.OAuth2AuthenticationSuccessHandler
 import org.springframework.context.annotation.Bean
 import org.springframework.http.HttpMethod
@@ -23,7 +24,8 @@ class SecurityConfig(
     private val customerUserDetailsService: CustomUserDetailsService,
     private val customerAuthenticationEntryPoint: CustomAuthenticationEntryPoint,
     private val customOAuth2UserService : CustomOAuth2UserService,
-    private val oAuth2AuthenticationSuccessHandler: OAuth2AuthenticationSuccessHandler
+    private val oAuth2AuthenticationSuccessHandler: OAuth2AuthenticationSuccessHandler,
+    private val OAuth2AuthenticationFailureHandler: OAuth2AuthenticationFailureHandler
 ) : WebSecurityConfigurerAdapter() {
 
     @Bean
@@ -60,6 +62,7 @@ class SecurityConfig(
             .userService(customOAuth2UserService)
             .and()
             .successHandler(oAuth2AuthenticationSuccessHandler)
+            .failureHandler(OAuth2AuthenticationFailureHandler)
         http
             .addFilter(getJwtAuthenticationFilter())
             .addFilter(getJwtAuthorizationFilter())
