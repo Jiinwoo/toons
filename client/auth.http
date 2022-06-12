@@ -8,7 +8,7 @@ Content-Type: application/json
   "password": "passw0rd"
 }
 ###
-OPTIONS https://api.jinwoo.space/auth
+OPTIONS http://localhost:8080/auth
 Content-Type: application/json
 
 {

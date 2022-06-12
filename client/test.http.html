@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    const headers = new Headers({
+        'Content-Type': 'application/json',
+    });
+    const body = {
+        email: "jwjung5038@gmail.com",
+        password: "passw0rd"
+    }
+    fetch('http://localhost:8080/auth', {
+        headers: {
+            'Content-Type': "application/json",
+            'Accept': "application/json"
+        },
+        body: JSON.stringify(body),
+        method: "POST"
+    });
+</script>
+</body>
+</html>
