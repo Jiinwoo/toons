@@ -29,6 +29,9 @@ class SecurityHandler(
         val data = mutableMapOf<String, String>(
             "token" to token
         )
+        response.setHeader("Access-Control-Allow-Headers", "*")
+        response.setHeader("Access-Control-Allow-Origin", "*")
+        response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE, HEAD, PUT");
         response.outputStream
             .println(objectMapper.writeValueAsString(data))
     }
