@@ -1,9 +1,29 @@
+
+
 spring:
   jpa:
     hibernate:
-      ddl-auto: validate
+      ddl-auto: update
+  quartz:
+    jdbc:
+      initialize-schema: always
+    job-store-type: jdbc
+    cron-expression:
+      crawling: "0 0 0 ? * * *" # 1일 마다
+    properties:
+      org:
+        quartz:
+          threadPool:
+            class: org.quartz.simpl.SimpleThreadPool
+            threadCount: 5
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
     url: jdbc:mariadb://db:3306/toons
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
+
+
+org:
+  quartz:
+    threadPool:
+      treadCount: 5

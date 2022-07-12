@@ -5,6 +5,18 @@ spring:
     properties:
       hibernate:
         format_sql: true
+  quartz:
+    jdbc:
+      initialize-schema: always
+    job-store-type: jdbc
+    cron-expression:
+      crawling: "0 * 0 ? * * *" # 1분 마다
+    properties:
+      org:
+        quartz:
+          threadPool:
+            class: org.quartz.simpl.SimpleThreadPool
+            threadCount: 5
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
     url: jdbc:mariadb://localhost:3306/toons

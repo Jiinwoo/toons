@@ -12,6 +12,7 @@ plugins {
 
 allOpen {
     annotation("javax.persistence.Entity") // @Entity가 붙은 클래스에 한해서만 all open 플러그인을 적용
+    annotation("javax.persistence.MappedSuperclass") // @Entity가 붙은 클래스에 한해서만 all open 플러그인을 적용
 }
 
 noArg {
@@ -29,7 +30,6 @@ repositories {
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-actuator")
-    implementation("org.springframework.boot:spring-boot-starter-batch")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-quartz")
     implementation("org.springframework.boot:spring-boot-starter-security")
@@ -56,6 +56,8 @@ dependencies {
     implementation("io.jsonwebtoken:jjwt:0.9.1")
     // jsoup
     implementation("org.jsoup:jsoup:1.15.1")
+    // Logging
+    implementation("io.github.microutils:kotlin-logging:1.12.5")
 }
 
 tasks.withType<KotlinCompile> {
