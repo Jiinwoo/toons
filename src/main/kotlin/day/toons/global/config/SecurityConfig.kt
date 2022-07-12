@@ -30,7 +30,14 @@ class SecurityConfig(
     private val oAuth2AuthenticationSuccessHandler: OAuth2AuthenticationSuccessHandler,
     private val OAuth2AuthenticationFailureHandler: OAuth2AuthenticationFailureHandler
 ) : WebSecurityConfigurerAdapter() {
-
+    companion object {
+        private val AUTH_WHITELIST = arrayOf(
+            // -- Swagger UI v3 (OpenAPI)
+            "/v3/api-docs/**",
+            "/swagger-ui/**", // other public endpoints of your API may be appended to this array
+            "/swagger-ui.html"
+        )
+    }
     @Bean
     fun getCustomAuthenticationProvider(passwordEncoder: PasswordEncoder): CustomAuthenticationProvider {
         return CustomAuthenticationProvider(passwordEncoder, customerUserDetailsService)
@@ -49,6 +56,7 @@ class SecurityConfig(
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
             .authorizeRequests()
+            .antMatchers(*AUTH_WHITELIST).permitAll()
             .antMatchers("/oauth2/**").permitAll()
             .antMatchers("/login/**").permitAll()
             .antMatchers("/auth").permitAll()

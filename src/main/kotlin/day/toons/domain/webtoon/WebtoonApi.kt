@@ -13,8 +13,10 @@ class WebtoonApi(
 ) {
 
     @GetMapping
-    fun getWebtoons(): Page<Webtoon> {
-        return webtoonRepository.findAll(Pageable.unpaged())
+    fun getWebtoons(
+        pageable: Pageable
+    ): Page<Webtoon> {
+        return webtoonRepository.findAll(pageable)
     }
 
 }

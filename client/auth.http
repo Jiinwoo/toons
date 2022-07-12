@@ -19,5 +19,5 @@ Content-Type: application/json
 > {% client.global.set("auth_token", response.body.token); %}
 
 ### Authorization by token, part 2. Use token to authorize.
-GET http://localhost:8080/api/members
+GET http://localhost:8080/api/webtoons
 Authorization: Bearer {{auth_token}}
