@@ -34,8 +34,10 @@ class SecurityConfig(
         private val AUTH_WHITELIST = arrayOf(
             // -- Swagger UI v3 (OpenAPI)
             "/v3/api-docs/**",
-            "/swagger-ui/**", // other public endpoints of your API may be appended to this array
-            "/swagger-ui.html"
+            "/swagger-ui/**",
+            "/swagger-ui.html",
+            // other public endpoints of your API may be appended to this array
+            "/api/webtoons"
         )
     }
     @Bean
