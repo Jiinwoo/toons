@@ -1,12 +1,12 @@
 package day.toons.infra.job
 
-import day.toons.global.config.security.CustomAuthenticationEntryPoint.Companion.logger
 import day.toons.service.WebtoonService
-import mu.toKLogger
+import mu.KotlinLogging
 import org.quartz.JobExecutionContext
 import org.springframework.scheduling.quartz.QuartzJobBean
 import org.springframework.stereotype.Component
 
+private val logger = KotlinLogging.logger {}
 @Component
 class CrawlingJob(
     private val webtoonService: WebtoonService

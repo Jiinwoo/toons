@@ -20,7 +20,7 @@ class WebtoonService(
     }
 
     fun doCrawling() {
-        webtoonRepository.deleteAll()
+        val savedWebtoons = webtoonRepository.findAll()
         val connect = Jsoup.connect("https://comic.naver.com/webtoon/weekday")
         val document = connect.get()
         val items = document.select(".list_area.daily_all .col .col_inner ul li")
@@ -37,6 +37,8 @@ class WebtoonService(
             val title = imageTag.attr("title")
             Webtoon(title, thumbNailImageUrl, dayOfWeek, Platform.NAVER, url.toString())
         }
-        webtoonRepository.saveAll(webtoons)
+
+        webtoonRepository.deleteAllByIdInBatch(savedWebtoons.toSet().subtract(webtoons.toSet()).map { it.id })
+        webtoonRepository.saveAll(webtoons.toSet().subtract(savedWebtoons.toSet()))
     }
 }

@@ -18,6 +18,13 @@ Content-Type: application/json
 
 > {% client.global.set("auth_token", response.body.token); %}
 
-### Authorization by token, part 2. Use token to authorize.
+### public
+GET http://localhost:8080/api/webtoons?day-of-week=MONDAY
+
+
+### public
 GET http://localhost:8080/api/webtoons
+
+### auth required
+GET http://localhost:8080/api/alarms
 Authorization: Bearer {{auth_token}}

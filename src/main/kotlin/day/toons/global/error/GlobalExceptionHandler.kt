@@ -4,6 +4,7 @@ import day.toons.global.Log
 import day.toons.global.error.ErrorResponse
 import day.toons.global.error.exception.BusinessException
 import day.toons.global.error.exception.ErrorCode
+import mu.KotlinLogging
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.HttpRequestMethodNotSupportedException
@@ -13,9 +14,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException
 
 
+private val logger = KotlinLogging.logger {}
 @ControllerAdvice
 class GlobalExceptionHandler {
-    companion object: Log
 
     /**
      * javax.validation.Valid or @Validated 으로 binding error 발생시 발생한다.

@@ -3,6 +3,7 @@ package day.toons.global.config.security
 
 import day.toons.global.Log
 import io.jsonwebtoken.*
+import mu.KotlinLogging
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
 import java.security.Key
@@ -11,10 +12,11 @@ import javax.crypto.spec.SecretKeySpec
 import javax.xml.bind.DatatypeConverter
 
 
+private val logger = KotlinLogging.logger {}
 @Component
 class JwtUtil {
 
-    companion object: Log {
+    companion object {
         const val TOKEN_VALIDATION_SECOND = 1000L * 60 * 24 * 2
         const val REFRESH_TOKEN_VALIDATION_SECOND = 1000L * 60 * 24 * 2
         const val ACCESS_TOKEN_NAME = "accessToken"

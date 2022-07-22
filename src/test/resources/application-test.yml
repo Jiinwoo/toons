@@ -19,10 +19,10 @@ spring:
             threadCount: 5
     auto-startup: false # 비활성화
   datasource:
-    driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://localhost:3306/toons
-    username: root
-    password: passw0rd
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:testdb;MODE=MySQL;
+    username: SA
+    password:
 
 logging:
   level:

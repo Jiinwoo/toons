@@ -5,10 +5,16 @@ import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.EnumType
 import javax.persistence.Enumerated
+import javax.persistence.Index
 import javax.persistence.Table
 
 
-@Table(name = "TB_MEMBER")
+@Table(
+    name = "TB_MEMBER",
+    indexes = [
+        Index(name = "MEMBER_INDX_0", columnList = "email"),
+    ]
+)
 @Entity
 class Member(
     @Column
@@ -23,10 +29,10 @@ class Member(
     var providerId: String? = null,
 
     provider: AuthProvider? = null,
-): AuditingEntity() {
+) : AuditingEntity() {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    var provider: AuthProvider = provider?: AuthProvider.local
+    var provider: AuthProvider = provider ?: AuthProvider.local
 
 
     fun update(email: String? = null, username: String? = null): Member {

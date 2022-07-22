@@ -17,7 +17,6 @@ class JwtAuthorizationFilter(
     private val customerUserDetailsService: CustomUserDetailsService,
     private val jwtUtil: JwtUtil
 ): BasicAuthenticationFilter(authenticationManager){
-    companion object: Log
     override fun doFilterInternal(request: HttpServletRequest, response: HttpServletResponse, chain: FilterChain) {
         val header = request.getHeader("Authorization")
 

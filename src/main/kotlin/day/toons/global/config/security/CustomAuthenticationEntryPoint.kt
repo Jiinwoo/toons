@@ -1,7 +1,7 @@
 package day.toons.global.config.security
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import day.toons.global.Log
+import mu.KotlinLogging
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.security.core.AuthenticationException
@@ -10,12 +10,11 @@ import org.springframework.stereotype.Component
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
+private val logger = KotlinLogging.logger {}
 @Component
 class CustomAuthenticationEntryPoint(
     private val objectMapper: ObjectMapper
 ) : AuthenticationEntryPoint {
-    companion object : Log {
-    }
 
     override fun commence(
         request: HttpServletRequest,
