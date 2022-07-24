@@ -63,6 +63,8 @@ class SecurityConfig(
             .antMatchers("/login/**").permitAll()
             .antMatchers("/auth").permitAll()
             .antMatchers(HttpMethod.POST,"/api/members").permitAll()
+            .antMatchers(HttpMethod.POST,"/api/members/certification/send").permitAll()
+            .antMatchers(HttpMethod.POST,"/api/members/certification/check").permitAll()
             .antMatchers(HttpMethod.OPTIONS,"/api/members").permitAll()
             .anyRequest().authenticated()
             .and()

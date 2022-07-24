@@ -32,6 +32,7 @@ dependencies {
     // stater
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    implementation("org.springframework.boot:spring-boot-starter-data-redis")
     implementation("org.springframework.boot:spring-boot-starter-quartz")
     implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
@@ -62,6 +63,8 @@ dependencies {
     implementation("org.jsoup:jsoup:1.15.1")
     // Logging
     implementation("io.github.microutils:kotlin-logging:1.12.5")
+    // twilio sdk
+    implementation("com.twilio.sdk:twilio:8.33.0")
 
 
 }

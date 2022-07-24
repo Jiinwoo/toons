@@ -25,6 +25,14 @@ GET http://localhost:8080/api/webtoons?day-of-week=MONDAY
 ### public
 GET http://localhost:8080/api/webtoons
 
+### public
+POST http://localhost:8080/api/members/certification/send
+Content-Type: application/json
+
+{
+  "phoneNumber": "+82-1072421962"
+}
+
 ### auth required
 GET http://localhost:8080/api/alarms
 Authorization: Bearer {{auth_token}}
