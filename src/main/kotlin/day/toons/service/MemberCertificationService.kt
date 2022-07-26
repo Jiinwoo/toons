@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service
 @Service
 class MemberCertificationService(
     private val smsClient: MemberSms,
-    private val redisTemplate: RedisTemplate<String, String>
+    private val redisTemplate: RedisTemplate<*, *>
 ) {
     fun send(dto: CertificationRequestDTO) {
         smsClient.send(dto.phoneNumber)

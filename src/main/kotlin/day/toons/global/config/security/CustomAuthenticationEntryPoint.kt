@@ -1,6 +1,8 @@
 package day.toons.global.config.security
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import day.toons.global.error.ErrorResponse
+import day.toons.global.error.exception.ErrorCode
 import mu.KotlinLogging
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType

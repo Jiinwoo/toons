@@ -16,13 +16,15 @@ class QuartzConfig(
 ) {
     @PostConstruct
     fun register() {
+        val jobKey = JobKey(CrawlingJob::class.simpleName, "main")
         val job = JobBuilder.newJob()
             .ofType(CrawlingJob::class.java)
-            .withIdentity(JobKey(CrawlingJob::class.simpleName, "main"))
+            .withIdentity(jobKey)
             .build()
         val trigger = getTrigger()
-
-        scheduler.scheduleJob(job, trigger)
+        if(!scheduler.checkExists(jobKey)) {
+            scheduler.scheduleJob(job, trigger)
+        }
     }
 
     private fun getTrigger(): Trigger {
