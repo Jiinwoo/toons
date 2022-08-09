@@ -3,8 +3,11 @@ package day.toons.service
 import day.toons.domain.webtoon.Platform
 import day.toons.domain.webtoon.Webtoon
 import day.toons.domain.webtoon.WebtoonRepository
+import day.toons.domain.webtoon.dto.WebtoonDTO
 import day.toons.global.util.URLUtils
 import org.jsoup.Jsoup
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.net.URL
@@ -40,5 +43,31 @@ class WebtoonService(
 
         webtoonRepository.deleteAllByIdInBatch(savedWebtoons.toSet().subtract(webtoons.toSet()).map { it.id })
         webtoonRepository.saveAll(webtoons.toSet().subtract(savedWebtoons.toSet()))
+    }
+
+    fun getWebtoons(pageable: Pageable, dayOfWeek: DayOfWeek?, platform: Platform?): Page<WebtoonDTO> {
+        val webtoons = if (dayOfWeek != null) {
+            if (platform != null) {
+                webtoonRepository.findAllByDayOfWeekAndPlatformAndDeletedAtIsNull(dayOfWeek, platform, Pageable.unpaged())
+            } else {
+                webtoonRepository.findAllByDayOfWeekAndDeletedAtIsNull(dayOfWeek, Pageable.unpaged())
+            }
+        } else {
+            if (platform != null) {
+                webtoonRepository.findAllByPlatformAndDeletedAtIsNull(platform, pageable)
+            } else {
+                webtoonRepository.findAll(pageable)
+            }
+        }
+        return webtoons.map { _webtoon ->
+            WebtoonDTO(
+                name = _webtoon.name,
+                thumbnail = _webtoon.thumbnail,
+                dayOfWeek = _webtoon.dayOfWeek,
+                platform = _webtoon.platform,
+                link = _webtoon.link,
+            )
+        }
+
     }
 }

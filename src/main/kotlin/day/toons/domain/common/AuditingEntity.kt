@@ -19,6 +19,7 @@ abstract class AuditingEntity : AuditingEntityId() {
     @Column(name = "updated_at", nullable = false)
     lateinit var updatedAt: LocalDateTime
         protected set
+
 }
 
 @MappedSuperclass

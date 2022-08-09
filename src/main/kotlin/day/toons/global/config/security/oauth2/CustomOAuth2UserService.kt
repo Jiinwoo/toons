@@ -59,7 +59,7 @@ class CustomOAuth2UserService(
     }
 
     private fun getOAuth2UserInfo(registrationId: String, attributes: MutableMap<String, Any>) =
-        when (registrationId.toLowerCase()) {
+        when (registrationId.lowercase()) {
             AuthProvider.kakao.toString() -> KakaoOAuth2UserInfo(attributes)
             else -> throw OAuth2AuthenticationProcessingException("죄송합니다. 현재 ${registrationId}는 지원하지 않고있습니다.")
         }

@@ -27,7 +27,7 @@ class AlarmService(
         if (alarmRepository.findByMemberAndWebtoonName(member, webtoon.name).isPresent) return
 
         val alarm = Alarm(
-            webtoonName = webtoon.name,
+            webtoon = webtoon,
             member = member
         )
         alarmRepository.save(alarm)
@@ -38,7 +38,15 @@ class AlarmService(
             MemberNotFoundException(principal.getEmail())
         }
         return alarmRepository.findAllByMember(member).map {
-            AlarmDTO(it.webtoonName)
+            AlarmDTO(
+                webtoonDTO = AlarmWebtoonDTO(
+                    name = it.webtoon.name,
+                    thumbnail = it.webtoon.thumbnail,
+                    dayOfWeek = it.webtoon.dayOfWeek,
+                    platform = it.webtoon.platform,
+                    link = it.webtoon.link,
+                )
+            )
         }
     }
 

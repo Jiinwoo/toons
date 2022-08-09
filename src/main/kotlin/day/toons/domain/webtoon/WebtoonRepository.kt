@@ -6,9 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository
 import java.time.DayOfWeek
 
 interface WebtoonRepository: JpaRepository<Webtoon, Long> {
-    fun findAllByDayOfWeek(dayOfWeek: DayOfWeek, pageable: Pageable): Page<Webtoon>
-    fun findAllByDayOfWeekAndPlatform(dayOfWeek: DayOfWeek, platform: Platform, pageable: Pageable): Page<Webtoon>
-    fun findAllByPlatform(platform: Platform, pageable: Pageable): Page<Webtoon>
-
-
+    fun findAllByDayOfWeekAndDeletedAtIsNull(dayOfWeek: DayOfWeek, pageable: Pageable): Page<Webtoon>
+    fun findAllByDayOfWeekAndPlatformAndDeletedAtIsNull(dayOfWeek: DayOfWeek, platform: Platform, pageable: Pageable): Page<Webtoon>
+    fun findAllByPlatformAndDeletedAtIsNull(platform: Platform, pageable: Pageable): Page<Webtoon>
 }

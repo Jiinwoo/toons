@@ -10,8 +10,8 @@ spring:
     port: 6379
   quartz:
     jdbc:
-      initialize-schema: always
-    job-store-type: jdbc
+      initialize-schema: EMBEDDED
+    job-store-type: memory
     cron-expression:
       crawling: "0 * 0 ? * * *" # 1분 마다
     properties:

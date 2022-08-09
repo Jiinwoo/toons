@@ -1,5 +1,7 @@
 package day.toons.domain.webtoon
 
+import day.toons.domain.webtoon.dto.WebtoonDTO
+import day.toons.service.WebtoonService
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.web.bind.annotation.GetMapping
@@ -11,27 +13,15 @@ import java.time.DayOfWeek
 @RestController
 @RequestMapping("/api/webtoons")
 class WebtoonApi(
-    private val webtoonRepository: WebtoonRepository
+    private val webtoonService: WebtoonService
 ) {
     @GetMapping
     fun getWebtoons(
         pageable: Pageable,
         @RequestParam(name = "day-of-week") dayOfWeek: DayOfWeek? = null,
         @RequestParam(name = "platform") platform: Platform? = null
-    ): Page<Webtoon> {
-        if (dayOfWeek != null) {
-            if (platform != null) {
-                return webtoonRepository.findAllByDayOfWeekAndPlatform(dayOfWeek, platform, Pageable.unpaged())
-            }else {
-                return webtoonRepository.findAllByDayOfWeek(dayOfWeek, Pageable.unpaged())
-            }
-        }else {
-            if (platform != null) {
-                return webtoonRepository.findAllByPlatform(platform, pageable)
-            }else {
-                return webtoonRepository.findAll(pageable)
-            }
-        }
+    ): Page<WebtoonDTO> {
+        return webtoonService.getWebtoons(pageable, dayOfWeek, platform)
     }
 
 }

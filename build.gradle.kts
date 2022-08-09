@@ -47,7 +47,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 
-    runtimeOnly("com.h2database:h2")
+    testRuntimeOnly("com.h2database:h2")
     runtimeOnly("mysql:mysql-connector-java")
     implementation("org.mariadb.jdbc:mariadb-java-client:3.0.4")
 

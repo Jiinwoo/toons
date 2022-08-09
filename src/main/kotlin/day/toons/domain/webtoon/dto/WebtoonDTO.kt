@@ -1,14 +1,9 @@
-package day.toons.domain.alarm
+package day.toons.domain.webtoon.dto
 
 import day.toons.domain.webtoon.Platform
-import day.toons.domain.webtoon.dto.WebtoonDTO
 import java.time.DayOfWeek
 
-class AlarmDTO(
-    val webtoonDTO: AlarmWebtoonDTO
-)
-
-class AlarmWebtoonDTO(
+class WebtoonDTO(
     val name: String,
     val thumbnail: String,
     val dayOfWeek: DayOfWeek,
