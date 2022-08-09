@@ -1,7 +1,5 @@
 package day.toons.global.config.security.oauth2.user
 
-import day.toons.global.config.security.oauth2.user.OAuth2UserInfo
-
 class KakaoOAuth2UserInfo(attributes: MutableMap<String, Any>): OAuth2UserInfo(attributes) {
     override val id: String
         get() = (attributes["id"]).toString()

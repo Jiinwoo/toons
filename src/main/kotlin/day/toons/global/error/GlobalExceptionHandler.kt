@@ -1,7 +1,5 @@
 package day.toons.global.error
 
-import day.toons.global.Log
-import day.toons.global.error.ErrorResponse
 import day.toons.global.error.exception.BusinessException
 import day.toons.global.error.exception.ErrorCode
 import mu.KotlinLogging

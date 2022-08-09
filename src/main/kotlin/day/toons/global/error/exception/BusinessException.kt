@@ -1,7 +1,5 @@
 package day.toons.global.error.exception
 
-import day.toons.global.error.exception.ErrorCode
-
 open class BusinessException : RuntimeException {
     var errorCode: ErrorCode
     constructor(message: String?, errorCode: ErrorCode) : super(message) {

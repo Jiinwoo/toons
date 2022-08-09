@@ -12,6 +12,9 @@ class MemberCertificationService(
     private val redisTemplate: RedisTemplate<*, *>
 ) {
     fun send(dto: CertificationRequestDTO) {
+
+
+
         smsClient.send(dto.phoneNumber)
     }
 

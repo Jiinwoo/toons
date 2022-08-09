@@ -45,6 +45,7 @@ class AlarmService(
                     dayOfWeek = it.webtoon.dayOfWeek,
                     platform = it.webtoon.platform,
                     link = it.webtoon.link,
+                    deletedAt = it.webtoon.deletedAt
                 )
             )
         }

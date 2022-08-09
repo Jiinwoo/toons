@@ -1,7 +1,6 @@
 package day.toons.global.config.security
 
 
-import day.toons.global.Log
 import io.jsonwebtoken.*
 import mu.KotlinLogging
 import org.springframework.beans.factory.annotation.Value

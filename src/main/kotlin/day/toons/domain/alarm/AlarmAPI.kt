@@ -4,10 +4,7 @@ import day.toons.domain.member.MemberAuth
 import day.toons.global.config.security.MemberPrincipal
 import day.toons.service.AlarmService
 import mu.KotlinLogging
-import org.springframework.http.HttpStatus
-import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.web.bind.annotation.*
-import java.security.Principal
 
 private val logger = KotlinLogging.logger {}
 

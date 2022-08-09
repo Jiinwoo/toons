@@ -59,7 +59,7 @@ dependencies {
     }
 
     // StringUtils
-    implementation("org.apache.commons:commons-lang3:3.0")
+    implementation("org.apache.commons:commons-text:1.9")
     //JWT
     implementation("io.jsonwebtoken:jjwt:0.9.1")
     // jsoup

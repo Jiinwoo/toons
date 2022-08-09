@@ -1,12 +1,7 @@
 package day.toons.domain.member
 
 import day.toons.domain.common.AuditingEntity
-import javax.persistence.Column
-import javax.persistence.Entity
-import javax.persistence.EnumType
-import javax.persistence.Enumerated
-import javax.persistence.Index
-import javax.persistence.Table
+import javax.persistence.*
 
 
 @Table(

@@ -1,6 +1,5 @@
 package day.toons.global.config.security
 
-import day.toons.global.Log
 import io.jsonwebtoken.ExpiredJwtException
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
