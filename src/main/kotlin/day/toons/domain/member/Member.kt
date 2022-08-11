@@ -33,7 +33,7 @@ class Member(
     var provider: AuthProvider = provider ?: AuthProvider.local
 
 
-    fun update(email: String? = null, username: String? = null, phoneNumber: String?): Member {
+    fun update(email: String? = null, username: String? = null, phoneNumber: String? = null): Member {
         this.username = username ?: this.username
         this.email = email ?: this.email
         this.phoneNumber = phoneNumber ?: this.phoneNumber
