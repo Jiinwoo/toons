@@ -4,6 +4,7 @@ import day.toons.domain.webtoon.Platform
 import java.time.DayOfWeek
 
 class WebtoonDTO(
+    val id: Long?,
     val name: String,
     val thumbnail: String,
     val dayOfWeek: DayOfWeek,

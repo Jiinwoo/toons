@@ -8,8 +8,9 @@ class CertificationRequestDTO(
 )
 
 class CertificationCheckDTO(
-    val method: CertificationMethod,
-    val value: String
+    @Pattern(regexp="^\\+[1-9]\\d{1,14}$", message = "휴대폰 형식이 일치하지 않습니다.")
+    val phoneNumber: String,
+    val code: String,
 )
 
 enum class CertificationMethod {

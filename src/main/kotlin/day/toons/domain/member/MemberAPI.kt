@@ -3,15 +3,18 @@ package day.toons.domain.member
 import day.toons.domain.member.dto.CertificationCheckDTO
 import day.toons.domain.member.dto.CertificationRequestDTO
 import day.toons.domain.member.dto.MemberCreateDTO
+import day.toons.domain.member.dto.MemberPhoneUpdateDTO
+import day.toons.global.config.security.MemberPrincipal
 import day.toons.service.MemberCertificationService
 import org.springframework.http.HttpStatus
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
+import javax.validation.Valid
 
 @RestController
 @RequestMapping("/api/members")
 class MemberAPI(
-    private val memberSignupService: MemberSignupService,
+    private val memberService: MemberService,
     private val memberCertificationService: MemberCertificationService
 ) {
     @ResponseStatus(HttpStatus.CREATED)
@@ -19,7 +22,15 @@ class MemberAPI(
     fun createMember(
         @Validated @RequestBody dto: MemberCreateDTO.Req
     ): MemberCreateDTO.Res {
-        return memberSignupService.signup(dto);
+        return memberService.signup(dto)
+    }
+
+    @PatchMapping("/phone-number")
+    fun updatePhoneNumber(
+        @MemberAuth principal: MemberPrincipal,
+        @Validated @RequestBody dto: MemberPhoneUpdateDTO.Req
+    ) {
+        memberService.updatePhoneNumber(principal.getEmail(), dto)
     }
 
     @PostMapping("/certification/send")
@@ -28,6 +39,7 @@ class MemberAPI(
     ) {
         memberCertificationService.send(dto)
     }
+
     @PostMapping("/certification/check")
     fun check(
         @RequestBody dto: CertificationCheckDTO

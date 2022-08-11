@@ -20,8 +20,8 @@ class TwilioSmsClient(
     @Value("\${app.twilio.from-number}")
     private val fromNumber: String
 ) : MemberSms {
-    override fun send(phoneNumber: String): Boolean{
-        val message = Message.creator(PhoneNumber(phoneNumber), PhoneNumber(fromNumber), "안녕하세요").create()
+    override fun send(phoneNumber: String, certificationNumber: String): Boolean{
+        val message = Message.creator(PhoneNumber(phoneNumber), PhoneNumber(fromNumber), "인증번호를 입력해주세요 [$certificationNumber]").create()
         logger.info(message.toString())
         return true
     }

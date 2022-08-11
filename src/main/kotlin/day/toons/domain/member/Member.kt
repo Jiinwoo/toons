@@ -18,6 +18,9 @@ class Member(
     var username: String,
 
     @Column
+    var phoneNumber: String? = null,
+
+    @Column
     var encryptedPassword: String? = null,
 
     @Column
@@ -30,9 +33,10 @@ class Member(
     var provider: AuthProvider = provider ?: AuthProvider.local
 
 
-    fun update(email: String? = null, username: String? = null): Member {
+    fun update(email: String? = null, username: String? = null, phoneNumber: String?): Member {
         this.username = username ?: this.username
         this.email = email ?: this.email
+        this.phoneNumber = phoneNumber ?: this.phoneNumber
         return this
     }
 

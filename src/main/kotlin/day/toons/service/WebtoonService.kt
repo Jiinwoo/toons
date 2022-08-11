@@ -61,6 +61,7 @@ class WebtoonService(
         }
         return webtoons.map { _webtoon ->
             WebtoonDTO(
+                id = _webtoon.id,
                 name = _webtoon.name,
                 thumbnail = _webtoon.thumbnail,
                 dayOfWeek = _webtoon.dayOfWeek,

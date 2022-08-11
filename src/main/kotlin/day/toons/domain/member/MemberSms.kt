@@ -1,5 +1,5 @@
 package day.toons.domain.member
 
 interface MemberSms {
-    fun send(phoneNumber: String): Boolean
+    fun send(phoneNumber: String, certificationNumber: String): Boolean
 }

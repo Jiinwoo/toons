@@ -17,7 +17,9 @@ enum class ErrorCode(
 
     // Member
     EMAIL_DUPLICATION(400, "M001", "이메일이 중복되었습니다."),
-    LOGIN_INPUT_INVALID(400, "M002", "Login input is invalid"),
+    SMS_FAIL(400, "M002", "SMS 발송 실패"),
+    CODE_NOT_FOUND(400, "M003", "SMS 인증 시간이 만료됐거나 존재하지 않습니다."),
+    CODE_NOT_EQUAL(400, "M004", "인증 코드가 다릅니다."),
 
     // Coupon
     COUPON_ALREADY_USE(400, "CO001", "Coupon was already used"),
