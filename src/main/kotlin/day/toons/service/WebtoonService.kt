@@ -1,16 +1,22 @@
 package day.toons.service
 
+import day.toons.domain.alarm.AlarmRepository
+import day.toons.domain.alarm.AlarmSms
+import day.toons.domain.alarm.AlarmStatus
 import day.toons.domain.webtoon.Platform
 import day.toons.domain.webtoon.Webtoon
 import day.toons.domain.webtoon.WebtoonRepository
 import day.toons.domain.webtoon.dto.WebtoonDTO
 import day.toons.global.util.URLUtils
+import kotlinx.coroutines.async
+import kotlinx.coroutines.runBlocking
 import mu.KotlinLogging
 import org.jsoup.Jsoup
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import reactor.core.publisher.zip
 import java.net.URL
 import java.time.DayOfWeek
 
@@ -19,7 +25,9 @@ private val logger = KotlinLogging.logger {}
 @Transactional
 @Service
 class WebtoonService(
-    private val webtoonRepository: WebtoonRepository
+    private val webtoonRepository: WebtoonRepository,
+    private val alarmRepository: AlarmRepository,
+    private val alarmSms: AlarmSms
 ) {
     companion object {
         private val dayOfWeekNumbers = listOf("", "mon", "tue", "wed", "thu", "fri", "sat", "sun")
@@ -71,6 +79,38 @@ class WebtoonService(
     }
 
     fun crawlingComplete() {
+        val connect = Jsoup.connect("https://comic.naver.com/webtoon/finish?order=Update&view=image")
+        val document = connect.get()
+        val items = document.select(".list_area li")
+
+        val titles = items.map { item ->
+            val anchor = item.select(".thumb a")
+            anchor.attr("title")
+        }.take(30)
+        val deletedWebtoons = webtoonRepository.findTop30ByDeletedAtIsNotNullOrderByDeletedAtDesc()
+        val completedWebtoons = deletedWebtoons.filter { deletedWebtoon ->
+            titles.any { it == deletedWebtoon.name }
+        }
+        val alarms = alarmRepository.findAllByWebtoonInAndStatusNot(completedWebtoons, AlarmStatus.SUCCESS)
+
+        val completedList = runBlocking {
+            alarms.map {
+                Pair(async { alarmSms.sendOut(it.member.phoneNumber!!, it.webtoon.name) }, it)
+            }.map { (api, alarm) ->
+                api
+                    .await()
+                    .onSuccess {
+                        alarm.complete()
+                    }
+                    .onFailure {
+                        logger.error { it }
+                        alarm.fail()
+                    }
+                alarm
+            }
+        }
+        alarmRepository.saveAll(completedList)
+
 
     }
 

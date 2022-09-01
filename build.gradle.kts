@@ -67,8 +67,11 @@ dependencies {
     // Logging
     implementation("io.github.microutils:kotlin-logging:1.12.5")
     // twilio sdk
-    implementation("com.twilio.sdk:twilio:8.33.0")
-
+    implementation("com.twilio.sdk:twilio:8.35.0")
+    // 코루틴
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
+    runtimeOnly("org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.6.4")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-slf4j:1.6.4")
 
 }
 

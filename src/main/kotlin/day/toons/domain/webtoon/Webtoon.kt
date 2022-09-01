@@ -11,7 +11,6 @@ import javax.persistence.*
 private val logger = KotlinLogging.logger {}
 @Table(name = "TB_WEBTOON")
 @Entity
-@SQLDelete(sql = "UPDATE tb_webtoon SET deleted_at = NOW() WHERE id = ?")
 class Webtoon(
     name: String,
     thumbnail: String,
@@ -38,6 +37,7 @@ class Webtoon(
         protected set
     @Column(nullable = true)
     var deletedAt: LocalDateTime? = null
+
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
