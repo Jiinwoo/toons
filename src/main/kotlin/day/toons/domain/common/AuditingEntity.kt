@@ -11,12 +11,12 @@ import javax.persistence.*
 abstract class AuditingEntity : AuditingEntityId() {
 
     @CreationTimestamp
-    @Column(name = "created_at", nullable = false, updatable = false)
+    @Column(name = "created_at", nullable = false, updatable = false, columnDefinition = "timestamp default CURRENT_TIMESTAMP not null")
     lateinit var createdAt: LocalDateTime
         protected set
 
     @UpdateTimestamp
-    @Column(name = "updated_at", nullable = false)
+    @Column(name = "updated_at", nullable = false, columnDefinition = "timestamp default CURRENT_TIMESTAMP not null")
     lateinit var updatedAt: LocalDateTime
         protected set
 
