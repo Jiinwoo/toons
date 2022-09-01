@@ -71,7 +71,9 @@ class WebtoonService(
                     }
                 }
             }
-        val news = webtoons - updatedWebtoons.toSet()
+        val news = webtoons.filterNot {new ->
+            (savedWebtoons + updatedWebtoons).any { it.name == new.name && it.dayOfWeek == new.dayOfWeek }
+        }
 
         webtoonRepository.saveAll(updatedWebtoons + news)
 

@@ -1,12 +1,12 @@
 
-POST https://api.jinwoo.space/api/members
+POST http://localhost:8080/api/members
 Content-Type: application/json
 
 {
   "email": "test1@gmail.com",
   "username": "정진우",
   "password": "passw0rd",
-  "phoneNumber": "+821072421962"
+  "phoneNumber": "821072421962"
 }
 ###
 OPTIONS http://localhost:8080/auth
@@ -31,7 +31,16 @@ POST http://localhost:8080/api/members/certification/send
 Content-Type: application/json
 
 {
-  "phoneNumber": "+82-1072421962"
+  "phoneNumber": "+821072421962"
+}
+
+### public
+POST http://localhost:8080/api/members/certification/check
+Content-Type: application/json
+
+{
+  "phoneNumber": "+821072421962",
+  "code" : "5ay0p6"
 }
 
 ### auth required
