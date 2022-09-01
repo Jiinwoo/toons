@@ -5,6 +5,7 @@ import day.toons.domain.webtoon.Webtoon
 import day.toons.domain.webtoon.WebtoonRepository
 import day.toons.domain.webtoon.dto.WebtoonDTO
 import day.toons.global.util.URLUtils
+import mu.KotlinLogging
 import org.jsoup.Jsoup
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
@@ -12,6 +13,8 @@ import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.net.URL
 import java.time.DayOfWeek
+
+private val logger = KotlinLogging.logger {}
 
 @Transactional
 @Service
@@ -22,7 +25,7 @@ class WebtoonService(
         private val dayOfWeekNumbers = listOf("", "mon", "tue", "wed", "thu", "fri", "sat", "sun")
     }
 
-    fun doCrawling() {
+    fun crawlingSerialize() {
         val savedWebtoons = webtoonRepository.findAll()
         val connect = Jsoup.connect("https://comic.naver.com/webtoon/weekday")
         val document = connect.get()
@@ -41,14 +44,44 @@ class WebtoonService(
             Webtoon(title, thumbNailImageUrl, dayOfWeek, Platform.NAVER, url.toString())
         }
 
-        webtoonRepository.deleteAllByIdInBatch(savedWebtoons.toSet().subtract(webtoons.toSet()).map { it.id })
-        webtoonRepository.saveAll(webtoons.toSet().subtract(savedWebtoons.toSet()))
+        val updatedWebtoons = savedWebtoons
+            .filterNot { savedWebtoon ->
+                // 완전히 동일한 엔티티가 있을 경우 제외
+                webtoons.any { it == savedWebtoon }
+            }
+            .map { savedWebtoon ->
+                val matched = webtoons.find { it.dayOfWeek == savedWebtoon.dayOfWeek && it.name == savedWebtoon.name }
+                if (matched != null) {
+                    savedWebtoon.changeThumbnail(matched.thumbnail)
+                } else {
+                    val existOtherDayOfWeek =
+                        webtoons.find { it.dayOfWeek != savedWebtoon.dayOfWeek && it.name == savedWebtoon.name }
+                    if (existOtherDayOfWeek != null) {
+                        savedWebtoon.changeDayOfWeek(existOtherDayOfWeek.dayOfWeek)
+                    } else {
+                        savedWebtoon.delete()
+                    }
+                }
+            }
+        val news = webtoons - updatedWebtoons.toSet()
+
+        webtoonRepository.saveAll(updatedWebtoons + news)
+
+
+    }
+
+    fun crawlingComplete() {
+
     }
 
     fun getWebtoons(pageable: Pageable, dayOfWeek: DayOfWeek?, platform: Platform?): Page<WebtoonDTO> {
         val webtoons = if (dayOfWeek != null) {
             if (platform != null) {
-                webtoonRepository.findAllByDayOfWeekAndPlatformAndDeletedAtIsNull(dayOfWeek, platform, Pageable.unpaged())
+                webtoonRepository.findAllByDayOfWeekAndPlatformAndDeletedAtIsNull(
+                    dayOfWeek,
+                    platform,
+                    Pageable.unpaged()
+                )
             } else {
                 webtoonRepository.findAllByDayOfWeekAndDeletedAtIsNull(dayOfWeek, Pageable.unpaged())
             }

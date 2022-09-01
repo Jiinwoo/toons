@@ -12,8 +12,11 @@ class CrawlingJob(
     private val webtoonService: WebtoonService
 ): QuartzJobBean(){
     override fun executeInternal(context: JobExecutionContext) {
-        logger.info("===== 크롤링 작업 시작 =====")
-        webtoonService.doCrawling()
-        logger.info("===== 크롤링 작업 끝 =====")
+        logger.info("===== 전체 웹툰 목록 크롤링 작업 시작 =====")
+        webtoonService.crawlingSerialize()
+        logger.info("===== 전체 웹툰 목록 크롤링 작업 끝   =====")
+        logger.info("===== 완결 웹툰 목록 크롤링 작업 시작 =====")
+        webtoonService.crawlingComplete()
+        logger.info("===== 완결 웹툰 목록 크롤링 작업 끝   =====")
     }
 }

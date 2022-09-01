@@ -1,11 +1,14 @@
 package day.toons.domain.webtoon
 
 import day.toons.domain.common.AuditingEntity
+import mu.KotlinLogging
 import org.hibernate.annotations.SQLDelete
 import java.time.DayOfWeek
+import java.time.LocalDate
 import java.time.LocalDateTime
 import javax.persistence.*
 
+private val logger = KotlinLogging.logger {}
 @Table(name = "TB_WEBTOON")
 @Entity
 @SQLDelete(sql = "UPDATE tb_webtoon SET deleted_at = NOW() WHERE id = ?")
@@ -58,6 +61,21 @@ class Webtoon(
         result = 31 * result + platform.hashCode()
         result = 31 * result + link.hashCode()
         return result
+    }
+
+    fun delete(): Webtoon{
+        this.deletedAt = LocalDateTime.now()
+        return this
+    }
+
+    fun changeDayOfWeek(dayOfWeek: DayOfWeek): Webtoon{
+        this.dayOfWeek = dayOfWeek
+        return this
+    }
+
+    fun changeThumbnail(thumbnail: String): Webtoon {
+        this.thumbnail = thumbnail
+        return this
     }
 
 

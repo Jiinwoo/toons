@@ -3,9 +3,10 @@ POST https://api.jinwoo.space/api/members
 Content-Type: application/json
 
 {
-  "email": "jwjung5038@gmail.com",
+  "email": "test1@gmail.com",
   "username": "정진우",
-  "password": "passw0rd"
+  "password": "passw0rd",
+  "phoneNumber": "+821072421962"
 }
 ###
 OPTIONS http://localhost:8080/auth
