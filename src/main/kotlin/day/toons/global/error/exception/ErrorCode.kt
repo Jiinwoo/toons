@@ -23,5 +23,8 @@ enum class ErrorCode(
 
     // Coupon
     COUPON_ALREADY_USE(400, "CO001", "Coupon was already used"),
-    COUPON_EXPIRE(400, "CO002", "Coupon was already expired")
+    COUPON_EXPIRE(400, "CO002", "Coupon was already expired"),
+
+    // Webtoon
+    CRAWLER_FAIL(400, "W001", "크롤링 실패"),
 }

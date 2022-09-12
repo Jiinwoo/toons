@@ -9,5 +9,6 @@ interface WebtoonRepository: JpaRepository<Webtoon, Long> {
     fun findAllByDayOfWeekAndDeletedAtIsNull(dayOfWeek: DayOfWeek, pageable: Pageable): Page<Webtoon>
     fun findAllByDayOfWeekAndPlatformAndDeletedAtIsNull(dayOfWeek: DayOfWeek, platform: Platform, pageable: Pageable): Page<Webtoon>
     fun findAllByPlatformAndDeletedAtIsNull(platform: Platform, pageable: Pageable): Page<Webtoon>
-    fun findTop30ByDeletedAtIsNotNullOrderByDeletedAtDesc(): List<Webtoon>
+    fun findTop30ByDeletedAtIsNotNullAndPlatformOrderByDeletedAtDesc(platform: Platform): List<Webtoon>
+    fun findAllByDeletedAtIsNullAndPlatform(platform: Platform): List<Webtoon>
 }

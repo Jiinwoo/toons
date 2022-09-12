@@ -1,9 +1,6 @@
 package day.toons.domain.member
 
-import day.toons.domain.member.dto.CertificationCheckDTO
-import day.toons.domain.member.dto.CertificationRequestDTO
-import day.toons.domain.member.dto.MemberCreateDTO
-import day.toons.domain.member.dto.MemberPhoneUpdateDTO
+import day.toons.domain.member.dto.*
 import day.toons.global.config.security.MemberPrincipal
 import day.toons.service.MemberCertificationService
 import org.springframework.http.HttpStatus
@@ -17,6 +14,13 @@ class MemberAPI(
     private val memberService: MemberService,
     private val memberCertificationService: MemberCertificationService
 ) {
+    @GetMapping
+    fun getMember(
+        @MemberAuth memberPrincipal: MemberPrincipal
+    ): MemberDTO {
+        return memberService.getMember(memberPrincipal.getEmail())
+    }
+
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     fun createMember(

@@ -1,6 +1,7 @@
 package day.toons.domain.member
 
 import day.toons.domain.member.dto.MemberCreateDTO
+import day.toons.domain.member.dto.MemberDTO
 import day.toons.domain.member.dto.MemberPhoneUpdateDTO
 import day.toons.domain.member.exception.EmailDuplicateException
 import day.toons.domain.member.exception.MemberNotFoundException
@@ -68,6 +69,17 @@ class MemberService(
         }
         redisTemplate.delete(smsAuthKey)
         return true
+    }
+
+    fun getMember(email: String): MemberDTO {
+        val member = memberRepository.findByEmail(email).orElseThrow {
+            throw MemberNotFoundException(email)
+        }
+        return MemberDTO(
+            email = member.email,
+            username = member.username,
+            phoneNumber = member.phoneNumber
+        )
     }
 
 }

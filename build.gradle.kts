@@ -60,7 +60,7 @@ dependencies {
 
     // StringUtils
     implementation("org.apache.commons:commons-text:1.9")
-    //JWT
+    // JWT
     implementation("io.jsonwebtoken:jjwt:0.9.1")
     // jsoup
     implementation("org.jsoup:jsoup:1.15.1")
@@ -72,6 +72,9 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
     runtimeOnly("org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.6.4")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-slf4j:1.6.4")
+
+    // WebClient
+    implementation("org.springframework.boot:spring-boot-starter-webflux")
 
 }
 
