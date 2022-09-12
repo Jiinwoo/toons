@@ -18,8 +18,8 @@ class JsoupNaverCrawlerClient: NAVERCrawler {
     }
 
     override fun getWebtoonList(): Result<List<Webtoon>> = runCatching {
-        val doc = Jsoup.connect("https://comic.naver.com/webtoon/weekday.nhn").get()
-        val webtoonList = doc.select("div.col_inner ul.img_list li")
+        val doc = Jsoup.connect("https://comic.naver.com/webtoon/weekday").get()
+        val webtoonList = doc.select("div.col_inner ul li")
         webtoonList.map { item ->
             val anchor = item.select(".thumb a")
             val link = anchor.attr("href")

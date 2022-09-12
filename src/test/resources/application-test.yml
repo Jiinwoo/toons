@@ -30,3 +30,6 @@ spring:
 logging:
   level:
     sql: INFO
+app:
+  twilio:
+    auth-token: test-auth-token

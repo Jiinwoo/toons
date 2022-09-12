@@ -57,7 +57,7 @@ class WebClientKAKAOClient(
                             dayOfWeek = section.title.toDayOfWeek(),
                             thumbnail = card.content.featuredCharacterImageB,
                             platform = Platform.KAKAO,
-                            link = "${card.content.title}/${card.content.id}",
+                            link = "https://webtoon.kakao.com/content/${card.content.title}/${card.content.id}",
                         )
                     }
                 }
