@@ -41,5 +41,7 @@ logging:
   level:
     sql: INFO
 app:
+  auth:
+    tokenSecret: TEST_JWT_SECRET
   twilio:
     auth-token: test-auth-token
