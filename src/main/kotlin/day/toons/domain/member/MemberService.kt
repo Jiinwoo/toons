@@ -3,6 +3,7 @@ package day.toons.domain.member
 import day.toons.domain.member.dto.MemberCreateDTO
 import day.toons.domain.member.dto.MemberDTO
 import day.toons.domain.member.dto.MemberPhoneUpdateDTO
+import day.toons.domain.member.dto.MemberUpdateDTO
 import day.toons.domain.member.exception.EmailDuplicateException
 import day.toons.domain.member.exception.MemberNotFoundException
 import day.toons.global.error.exception.BusinessException
@@ -56,6 +57,27 @@ class MemberService(
         }
         foundMember.update(
             phoneNumber = dto.phoneNumber
+        )
+    }
+
+    fun updateMember(email: String, dto: MemberUpdateDTO.Req): MemberUpdateDTO.Res {
+        val member = memberRepository.findByEmail(email).orElseThrow {
+            throw MemberNotFoundException(email)
+        }
+
+        if (member.phoneNumber != dto.phoneNumber) {
+            if (!verifyAndRemoveAuthKey(dto.phoneNumber)) {
+                throw BusinessException(ErrorCode.CODE_NOT_EQUAL)
+            }
+        }
+
+        member.update(
+            username = dto.username,
+            phoneNumber = dto.phoneNumber
+        )
+        return MemberUpdateDTO.Res(
+            username = member.username,
+            phoneNumber = member.phoneNumber ?: ""
         )
     }
 

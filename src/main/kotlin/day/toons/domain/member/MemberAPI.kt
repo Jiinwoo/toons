@@ -29,6 +29,14 @@ class MemberAPI(
         return memberService.signup(dto)
     }
 
+    @PutMapping
+    fun updateMember(
+        @MemberAuth memberPrincipal: MemberPrincipal,
+        @Validated @RequestBody dto: MemberUpdateDTO.Req
+    ): MemberUpdateDTO.Res {
+        return memberService.updateMember(memberPrincipal.getEmail(), dto)
+    }
+
     @PatchMapping("/phone-number")
     fun updatePhoneNumber(
         @MemberAuth principal: MemberPrincipal,
