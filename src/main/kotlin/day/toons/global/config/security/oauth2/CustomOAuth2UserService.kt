@@ -4,6 +4,7 @@ import day.toons.domain.member.AuthProvider
 import day.toons.domain.member.Member
 import day.toons.domain.member.MemberRepository
 import day.toons.global.config.security.MemberPrincipal
+import day.toons.global.config.security.oauth2.user.GoogleOAuth2UserInfo
 import day.toons.global.config.security.oauth2.user.KakaoOAuth2UserInfo
 import day.toons.global.config.security.oauth2.user.OAuth2UserInfo
 import org.apache.commons.lang3.StringUtils
@@ -61,6 +62,7 @@ class CustomOAuth2UserService(
     private fun getOAuth2UserInfo(registrationId: String, attributes: MutableMap<String, Any>) =
         when (registrationId.lowercase()) {
             AuthProvider.kakao.toString() -> KakaoOAuth2UserInfo(attributes)
+            AuthProvider.google.toString() -> GoogleOAuth2UserInfo(attributes)
             else -> throw OAuth2AuthenticationProcessingException("죄송합니다. 현재 ${registrationId}는 지원하지 않고있습니다.")
         }
 
