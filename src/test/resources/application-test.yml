@@ -1,4 +1,14 @@
 spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: TEST_GOOGLE_CLIENT_ID
+            client-secret: TEST_GOOGLE_CLIENT_SECRET
+          kakao:
+            client-id: TEST_KAKAO_CLIENT_ID
+            client-secret: TEST_KAKAO_CLIENT_SECRET
   jpa:
     hibernate:
       ddl-auto: create-drop

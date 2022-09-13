@@ -26,7 +26,7 @@ class SecurityConfig(
     private val objectMapper: ObjectMapper,
     private val customerUserDetailsService: CustomUserDetailsService,
     private val customerAuthenticationEntryPoint: CustomAuthenticationEntryPoint,
-    private val customOAuth2UserService : CustomOAuth2UserService,
+    private val customOAuth2UserService: CustomOAuth2UserService,
     private val oAuth2AuthenticationSuccessHandler: OAuth2AuthenticationSuccessHandler,
     private val OAuth2AuthenticationFailureHandler: OAuth2AuthenticationFailureHandler
 ) : WebSecurityConfigurerAdapter() {
@@ -40,6 +40,7 @@ class SecurityConfig(
             "/api/webtoons"
         )
     }
+
     @Bean
     fun getCustomAuthenticationProvider(passwordEncoder: PasswordEncoder): CustomAuthenticationProvider {
         return CustomAuthenticationProvider(passwordEncoder, customerUserDetailsService)
@@ -59,13 +60,12 @@ class SecurityConfig(
             .and()
             .authorizeRequests()
             .antMatchers(*AUTH_WHITELIST).permitAll()
-            .antMatchers("/oauth2/**").permitAll()
             .antMatchers("/login/**").permitAll()
             .antMatchers("/auth").permitAll()
-            .antMatchers(HttpMethod.POST,"/api/members").permitAll()
-            .antMatchers(HttpMethod.POST,"/api/members/certification/send").permitAll()
-            .antMatchers(HttpMethod.POST,"/api/members/certification/check").permitAll()
-            .antMatchers(HttpMethod.OPTIONS,"/api/members").permitAll()
+            .antMatchers(HttpMethod.POST, "/api/members").permitAll()
+            .antMatchers(HttpMethod.POST, "/api/members/certification/send").permitAll()
+            .antMatchers(HttpMethod.POST, "/api/members/certification/check").permitAll()
+            .antMatchers(HttpMethod.OPTIONS, "/api/members").permitAll()
             .anyRequest().authenticated()
             .and()
             .oauth2Login()
@@ -73,8 +73,9 @@ class SecurityConfig(
             .baseUri("/oauth2/authorization")
             .authorizationRequestRepository(cookieAuthorizationRequestRepository())
             .and()
-//            .redirectionEndpoint()
-//            .baseUri("/oauth2/callback/*")
+            .redirectionEndpoint()
+            .baseUri("/*/oauth2/code/*")
+            .and()
             .userInfoEndpoint()
             .userService(customOAuth2UserService)
             .and()
@@ -101,19 +102,20 @@ class SecurityConfig(
     fun getJwtAuthenticationFilter(): JwtAuthenticationFilter {
         val filter = JwtAuthenticationFilter(objectMapper)
         filter.setFilterProcessesUrl("/auth")
-        filter.setAuthenticationManager( authenticationManager())
+        filter.setAuthenticationManager(authenticationManager())
         filter.setAuthenticationFailureHandler(getSecurityHandler())
         filter.setAuthenticationSuccessHandler(getSecurityHandler())
         filter.afterPropertiesSet()
         return filter
     }
+
     @Bean
     fun getJwtAuthorizationFilter(): JwtAuthorizationFilter {
         return JwtAuthorizationFilter(authenticationManager(), customerUserDetailsService, jwtUtil)
     }
 
     @Bean
-    fun getSecurityHandler (): SecurityHandler {
+    fun getSecurityHandler(): SecurityHandler {
         return SecurityHandler(objectMapper, jwtUtil)
     }
 
