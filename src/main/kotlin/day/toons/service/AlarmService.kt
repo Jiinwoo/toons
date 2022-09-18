@@ -39,6 +39,7 @@ class AlarmService(
         }
         return alarmRepository.findAllByMember(member).map {
             AlarmDTO(
+                id = it.id!!,
                 webtoonDTO = AlarmWebtoonDTO(
                     name = it.webtoon.name,
                     thumbnail = it.webtoon.thumbnail,
