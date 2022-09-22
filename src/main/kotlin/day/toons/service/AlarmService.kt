@@ -4,6 +4,7 @@ import day.toons.domain.alarm.*
 import day.toons.domain.member.MemberRepository
 import day.toons.domain.member.exception.MemberNotFoundException
 import day.toons.domain.webtoon.WebtoonRepository
+import day.toons.domain.webtoon.dto.WebtoonDTO
 import day.toons.domain.webtoon.exception.WebtoonNotFoundException
 import day.toons.global.config.security.MemberPrincipal
 import org.springframework.stereotype.Service
@@ -16,7 +17,7 @@ class AlarmService(
     private val webtoonRepository: WebtoonRepository,
     private val memberRepository: MemberRepository
 ) {
-    fun putAlarm(principal: MemberPrincipal, dto: AlarmCreateDTO) {
+    fun putAlarm(principal: MemberPrincipal, dto: AlarmCreateDTO): AlarmDTO{
         val member = memberRepository.findByEmail(principal.getEmail()).orElseThrow {
             MemberNotFoundException(principal.getEmail())
         }
@@ -24,13 +25,38 @@ class AlarmService(
             WebtoonNotFoundException(dto.webtoonId)
         }
 
-        if (alarmRepository.findByMemberAndWebtoonName(member, webtoon.name).isPresent) return
+        val exist = alarmRepository.findByMemberAndWebtoonName(member, webtoon.name)
+        if (exist.isPresent) {
+            val alarm = exist.get()
+            return AlarmDTO(
+                id = alarm.id!!,
+                webtoonDTO = AlarmWebtoonDTO(
+                    name = alarm.webtoon.name,
+                    thumbnail = alarm.webtoon.thumbnail,
+                    dayOfWeek = alarm.webtoon.dayOfWeek,
+                    platform = alarm.webtoon.platform,
+                    link = alarm.webtoon.link,
+                    deletedAt = alarm.webtoon.deletedAt
+                ),
+            )        }
 
         val alarm = Alarm(
             webtoon = webtoon,
             member = member
         )
-        alarmRepository.save(alarm)
+        val savedAlarm = alarmRepository.save(alarm)
+        return AlarmDTO(
+            id = savedAlarm.id!!,
+            webtoonDTO = AlarmWebtoonDTO(
+                name = savedAlarm.webtoon.name,
+                thumbnail = savedAlarm.webtoon.thumbnail,
+                dayOfWeek = savedAlarm.webtoon.dayOfWeek,
+                platform = savedAlarm.webtoon.platform,
+                link = savedAlarm.webtoon.link,
+                deletedAt = savedAlarm.webtoon.deletedAt
+            )
+
+        )
     }
 
     fun getAlarms(principal: MemberPrincipal): List<AlarmDTO> {

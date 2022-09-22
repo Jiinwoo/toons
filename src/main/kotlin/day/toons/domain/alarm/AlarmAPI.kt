@@ -24,8 +24,8 @@ class AlarmAPI(
     fun putAlarm(
         @MemberAuth principal: MemberPrincipal,
         @RequestBody dto: AlarmCreateDTO
-    ) {
-        alarmService.putAlarm(principal, dto)
+    ): AlarmDTO {
+        return alarmService.putAlarm(principal, dto)
     }
 
 

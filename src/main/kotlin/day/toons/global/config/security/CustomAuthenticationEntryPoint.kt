@@ -1,6 +1,8 @@
 package day.toons.global.config.security
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import day.toons.global.error.ErrorResponse
+import day.toons.global.error.exception.ErrorCode
 import mu.KotlinLogging
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
@@ -26,6 +28,6 @@ class CustomAuthenticationEntryPoint(
         response.contentType = MediaType.APPLICATION_JSON_VALUE
         response.status = HttpStatus.UNAUTHORIZED.value()
 
-        response.sendError(HttpStatus.UNAUTHORIZED.value(), HttpStatus.UNAUTHORIZED.reasonPhrase)
+        response.writer.print(objectMapper.writeValueAsString(ErrorResponse(ErrorCode.AUTHENTICATION_REQUIRED)))
     }
 }

@@ -46,3 +46,6 @@ Content-Type: application/json
 ### auth required
 GET http://localhost:8080/api/alarms
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InRlc3RAZ21haWwuY29tIiwiZXhwIjoxNjU4NzI2MzkzLCJpYXQiOjE2NTg3MjM1MTN9.0YoevNFeRR4eyGzq9WxTJm8xF2bo2FBXlK0Dm1RpuVM
+
+### error redirect test
+GET http://localhost:8080/favicon.ico
