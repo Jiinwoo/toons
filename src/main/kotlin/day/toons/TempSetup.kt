@@ -6,10 +6,12 @@ import day.toons.domain.member.repository.MemberRepository
 import day.toons.domain.member.repository.RoleHierarchyRepository
 import day.toons.domain.member.repository.RoleRepository
 import org.springframework.context.ApplicationListener
+import org.springframework.context.annotation.Profile
 import org.springframework.context.event.ContextRefreshedEvent
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
 
+@Profile("!test")
 @Component
 class TempSetup(
         private val memberRepository: MemberRepository,
