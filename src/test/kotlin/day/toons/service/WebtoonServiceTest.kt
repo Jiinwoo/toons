@@ -1,20 +1,15 @@
 package day.toons.service
 
 import day.toons.TestConfiguration
-import day.toons.domain.webtoon.Platform
+import day.toons.domain.common.Platform
 import day.toons.domain.webtoon.Webtoon
 import day.toons.domain.webtoon.WebtoonRepository
-import day.toons.global.util.URLUtils
 import org.assertj.core.api.Assertions
-import org.jsoup.Jsoup
-import org.junit.jupiter.api.Assertions.*
-import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.TestConstructor
 import org.springframework.transaction.annotation.Transactional
-import java.net.URL
 import java.time.DayOfWeek
 import javax.persistence.EntityManager
 

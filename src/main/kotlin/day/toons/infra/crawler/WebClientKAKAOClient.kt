@@ -1,7 +1,7 @@
 package day.toons.infra.crawler
 
 import day.toons.domain.webtoon.KAKAOCrawler
-import day.toons.domain.webtoon.Platform
+import day.toons.domain.common.Platform
 import day.toons.domain.webtoon.Webtoon
 import org.springframework.stereotype.Component
 import org.springframework.web.reactive.function.client.WebClient

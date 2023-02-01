@@ -1,10 +1,9 @@
 package day.toons.domain.webtoon
 
 import day.toons.domain.common.AuditingEntity
+import day.toons.domain.common.Platform
 import mu.KotlinLogging
-import org.hibernate.annotations.SQLDelete
 import java.time.DayOfWeek
-import java.time.LocalDate
 import java.time.LocalDateTime
 import javax.persistence.*
 
@@ -12,11 +11,11 @@ private val logger = KotlinLogging.logger {}
 @Table(name = "TB_WEBTOON")
 @Entity
 class Webtoon(
-    name: String,
-    thumbnail: String,
-    dayOfWeek: DayOfWeek,
-    platform: Platform,
-    link: String
+        name: String,
+        thumbnail: String,
+        dayOfWeek: DayOfWeek,
+        platform: Platform,
+        link: String
 ) : AuditingEntity() {
     @Column(nullable = false)
     var name = name

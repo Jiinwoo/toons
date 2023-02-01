@@ -1,4 +1,4 @@
-package day.toons.domain.webtoon
+package day.toons.domain.common
 
 enum class Platform {
     NAVER,

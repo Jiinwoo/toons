@@ -6,8 +6,8 @@ import day.toons.domain.member.dto.MemberPhoneUpdateDTO
 import day.toons.domain.member.dto.MemberUpdateDTO
 import day.toons.domain.member.exception.EmailDuplicateException
 import day.toons.domain.member.exception.MemberNotFoundException
+import day.toons.domain.member.repository.MemberRepository
 import day.toons.global.error.exception.BusinessException
-import day.toons.global.error.exception.EntityNotFoundException
 import day.toons.global.error.exception.ErrorCode
 import day.toons.service.MemberCertificationService
 import org.springframework.data.redis.core.RedisTemplate
@@ -18,9 +18,9 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 @Transactional
 class MemberService(
-    private val memberRepository: MemberRepository,
-    private val encoder: PasswordEncoder,
-    private val redisTemplate: RedisTemplate<String, String>
+        private val memberRepository: MemberRepository,
+        private val encoder: PasswordEncoder,
+        private val redisTemplate: RedisTemplate<String, String>
 ) {
 
 
@@ -34,17 +34,17 @@ class MemberService(
 
 
         val member: Member = memberRepository.save(
-            Member(
-                email = dto.email, username = dto.username,
-                phoneNumber = dto.phoneNumber,
-                encryptedPassword = encoder.encode(dto.password),
-                provider = AuthProvider.local,
-            )
+                Member(
+                        email = dto.email, username = dto.username,
+                        phoneNumber = dto.phoneNumber,
+                        encryptedPassword = encoder.encode(dto.password),
+                        provider = AuthProvider.local,
+                )
         )
 
         return MemberCreateDTO.Res(
-            email = member.email,
-            username = member.username
+                email = member.email,
+                username = member.username
         )
     }
 
@@ -56,7 +56,7 @@ class MemberService(
             throw MemberNotFoundException(email)
         }
         foundMember.update(
-            phoneNumber = dto.phoneNumber
+                phoneNumber = dto.phoneNumber
         )
     }
 
@@ -72,12 +72,12 @@ class MemberService(
         }
 
         member.update(
-            username = dto.username,
-            phoneNumber = dto.phoneNumber
+                username = dto.username,
+                phoneNumber = dto.phoneNumber
         )
         return MemberUpdateDTO.Res(
-            username = member.username,
-            phoneNumber = member.phoneNumber ?: ""
+                username = member.username,
+                phoneNumber = member.phoneNumber ?: ""
         )
     }
 
@@ -98,9 +98,9 @@ class MemberService(
             throw MemberNotFoundException(email)
         }
         return MemberDTO(
-            email = member.email,
-            username = member.username,
-            phoneNumber = member.phoneNumber
+                email = member.email,
+                username = member.username,
+                phoneNumber = member.phoneNumber
         )
     }
 

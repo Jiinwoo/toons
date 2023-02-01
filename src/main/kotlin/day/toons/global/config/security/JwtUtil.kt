@@ -12,6 +12,7 @@ import javax.xml.bind.DatatypeConverter
 
 
 private val logger = KotlinLogging.logger {}
+
 @Component
 class JwtUtil {
 
@@ -33,6 +34,7 @@ class JwtUtil {
     fun generateToken(principal: MemberPrincipal): String {
         return generateJwtToken(principal, TOKEN_VALIDATION_SECOND)
     }
+
     fun generateRefreshToken(principal: MemberPrincipal): String {
         return generateJwtToken(principal, REFRESH_TOKEN_VALIDATION_SECOND)
     }
@@ -57,24 +59,26 @@ class JwtUtil {
 
     private fun generateJwtToken(principal: MemberPrincipal, expireTime: Long): String {
         return Jwts.builder()
-            .setSubject(principal.getEmail())
-            .setClaims(createClaims(principal))
-            .setExpiration(Date(System.currentTimeMillis() + expireTime))
-            .setIssuedAt(Date(System.currentTimeMillis()))
-            .signWith(SignatureAlgorithm.HS256, getSigningKey(SECRET_KEY))
-            .compact()
+                .setSubject(principal.getEmail())
+                .setClaims(createClaims(principal))
+                .setExpiration(Date(System.currentTimeMillis() + expireTime))
+                .setIssuedAt(Date(System.currentTimeMillis()))
+                .signWith(SignatureAlgorithm.HS256, getSigningKey(SECRET_KEY))
+                .compact()
     }
 
     private fun createClaims(principal: MemberPrincipal): Claims? {
         val claims = Jwts.claims()
         claims.putIfAbsent("email", principal.getEmail())
+        claims.putIfAbsent("roles", principal.authorities.map { it.authority })
         return claims
     }
-    private fun getClaimsFromToken(token: String): Claims{
+
+    private fun getClaimsFromToken(token: String): Claims {
         return Jwts
-            .parser()
-            .setSigningKey(DatatypeConverter.parseBase64Binary(SECRET_KEY))
-            .parseClaimsJws(token).body
+                .parser()
+                .setSigningKey(DatatypeConverter.parseBase64Binary(SECRET_KEY))
+                .parseClaimsJws(token).body
     }
 
     private fun getSigningKey(secretKey: String): Key? {

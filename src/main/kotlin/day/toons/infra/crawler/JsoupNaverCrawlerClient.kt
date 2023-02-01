@@ -1,10 +1,9 @@
 package day.toons.infra.crawler
 
 import day.toons.domain.webtoon.NAVERCrawler
-import day.toons.domain.webtoon.Platform
+import day.toons.domain.common.Platform
 import day.toons.domain.webtoon.Webtoon
 import day.toons.global.util.URLUtils
-import day.toons.service.WebtoonService
 import org.jsoup.Jsoup
 import org.springframework.stereotype.Component
 import java.net.URL

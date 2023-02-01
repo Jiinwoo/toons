@@ -8,8 +8,8 @@ Content-Type: application/json
   "password": "passw0rd",
   "phoneNumber": "821072421962"
 }
-###
-OPTIONS http://localhost:8080/auth
+### 로그인
+POST http://localhost:8080/auth
 Content-Type: application/json
 
 {

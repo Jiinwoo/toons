@@ -1,10 +1,9 @@
 package day.toons.service
 
 import day.toons.domain.alarm.*
-import day.toons.domain.member.MemberRepository
+import day.toons.domain.member.repository.MemberRepository
 import day.toons.domain.member.exception.MemberNotFoundException
 import day.toons.domain.webtoon.WebtoonRepository
-import day.toons.domain.webtoon.dto.WebtoonDTO
 import day.toons.domain.webtoon.exception.WebtoonNotFoundException
 import day.toons.global.config.security.MemberPrincipal
 import org.springframework.stereotype.Service

@@ -1,11 +1,10 @@
-package day.toons.domain.webtoon.dto
+package day.toons.domain.webtoon.dto.event
 
 import day.toons.domain.common.Platform
 import java.time.DayOfWeek
 
-class WebtoonDTO(
-        val id: Long?,
-        val name: String,
+data class WebtoonSavedEvent(
+        val title: String,
         val thumbnail: String,
         val dayOfWeek: DayOfWeek,
         val platform: Platform,

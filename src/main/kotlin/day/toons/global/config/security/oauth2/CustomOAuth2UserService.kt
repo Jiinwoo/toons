@@ -2,7 +2,7 @@ package day.toons.global.config.security.oauth2
 
 import day.toons.domain.member.AuthProvider
 import day.toons.domain.member.Member
-import day.toons.domain.member.MemberRepository
+import day.toons.domain.member.repository.MemberRepository
 import day.toons.global.config.security.MemberPrincipal
 import day.toons.global.config.security.oauth2.user.GoogleOAuth2UserInfo
 import day.toons.global.config.security.oauth2.user.KakaoOAuth2UserInfo
@@ -17,7 +17,7 @@ import javax.naming.AuthenticationException
 
 @Service
 class CustomOAuth2UserService(
-    private val memberRepository: MemberRepository,
+        private val memberRepository: MemberRepository,
 ) : DefaultOAuth2UserService() {
     override fun loadUser(oAuth2UserRequest: OAuth2UserRequest): OAuth2User {
         val oAuth2User = super.loadUser(oAuth2UserRequest)

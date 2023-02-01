@@ -1,6 +1,6 @@
 package day.toons.domain.alarm
 
-import day.toons.domain.webtoon.Platform
+import day.toons.domain.common.Platform
 import java.time.DayOfWeek
 import java.time.LocalDateTime
 
@@ -10,10 +10,10 @@ class AlarmDTO(
 )
 
 class AlarmWebtoonDTO(
-    val name: String,
-    val thumbnail: String,
-    val dayOfWeek: DayOfWeek,
-    val platform: Platform,
-    val link: String,
-    val deletedAt: LocalDateTime?
+        val name: String,
+        val thumbnail: String,
+        val dayOfWeek: DayOfWeek,
+        val platform: Platform,
+        val link: String,
+        val deletedAt: LocalDateTime?
 )

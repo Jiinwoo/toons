@@ -23,12 +23,12 @@ class MemberPrincipal private constructor(
     }
 
     companion object {
-        fun create(member: Member): MemberPrincipal {
+        fun create(member: Member, roles: Collection<GrantedAuthority>): MemberPrincipal {
             return MemberPrincipal(
                 id = member.id,
                 email = member.email,
                 username = member.username,
-                authorities = listOf(SimpleGrantedAuthority("ROLE_USER")),
+                authorities = roles,
                 password = member.encryptedPassword
             )
         }

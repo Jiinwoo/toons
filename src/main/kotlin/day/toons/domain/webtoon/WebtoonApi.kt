@@ -1,5 +1,6 @@
 package day.toons.domain.webtoon
 
+import day.toons.domain.common.Platform
 import day.toons.domain.webtoon.dto.WebtoonDTO
 import day.toons.service.WebtoonService
 import org.springframework.data.domain.Page
